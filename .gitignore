@@ -1,0 +1,20 @@
+# Virtual environments
+venv/
+venv_mac/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+
+# Large emissions dumps
+emissions_output.xml
+models/
+*_smoke*

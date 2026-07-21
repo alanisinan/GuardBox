@@ -1,0 +1,173 @@
+{
+  "topology": "better_intersection",
+  "severity_sensitivity": {
+    "default (0.4/0.3/0.2/0.1)": {
+      "means": {
+        "normal": 0.13026990290655824,
+        "timing_manipulation": 0.41202070279295255,
+        "replay_attack": 0.47970673479185005,
+        "physical_intrusion": 0.32622364654879715,
+        "combined_attack": 0.6150752573569614
+      },
+      "ranking": [
+        "combined_attack",
+        "replay_attack",
+        "timing_manipulation",
+        "physical_intrusion",
+        "normal"
+      ],
+      "spearman_vs_default": 0.9999999999999999
+    },
+    "equal (0.25 each)": {
+      "means": {
+        "normal": 0.2752160161372765,
+        "timing_manipulation": 0.5071852806965924,
+        "replay_attack": 0.49299081416217405,
+        "physical_intrusion": 0.5218452630047875,
+        "combined_attack": 0.7590130093743404
+      },
+      "ranking": [
+        "combined_attack",
+        "physical_intrusion",
+        "timing_manipulation",
+        "replay_attack",
+        "normal"
+      ],
+      "spearman_vs_default": 0.6
+    },
+    "recon-heavy (0.6/0.2/0.1/0.1)": {
+      "means": {
+        "normal": 0.12021554707712695,
+        "timing_manipulation": 0.3193416883854403,
+        "replay_attack": 0.6468636825187041,
+        "physical_intrusion": 0.21751353417603875,
+        "combined_attack": 0.42424899193048476
+      },
+      "ranking": [
+        "replay_attack",
+        "combined_attack",
+        "timing_manipulation",
+        "physical_intrusion",
+        "normal"
+      ],
+      "spearman_vs_default": 0.8999999999999998
+    },
+    "phase-heavy (0.2/0.5/0.2/0.1)": {
+      "means": {
+        "normal": 0.15039998164907373,
+        "timing_manipulation": 0.6041754635220602,
+        "replay_attack": 0.3216283549326244,
+        "physical_intrusion": 0.3436625331804184,
+        "combined_attack": 0.8052470804254213
+      },
+      "ranking": [
+        "combined_attack",
+        "timing_manipulation",
+        "physical_intrusion",
+        "replay_attack",
+        "normal"
+      ],
+      "spearman_vs_default": 0.7
+    },
+    "sensor-heavy (0.2/0.2/0.5/0.1)": {
+      "means": {
+        "normal": 0.12017281290982124,
+        "timing_manipulation": 0.305748224557274,
+        "replay_attack": 0.29439265132973924,
+        "physical_intrusion": 0.6174762104038299,
+        "combined_attack": 0.8072104074994723
+      },
+      "ranking": [
+        "combined_attack",
+        "physical_intrusion",
+        "timing_manipulation",
+        "replay_attack",
+        "normal"
+      ],
+      "spearman_vs_default": 0.6
+    }
+  },
+  "class_order_stable": false,
+  "high_corr_pairs_ge_0.8": [
+    [
+      "elapsed_seconds",
+      "phase_deviation_pct",
+      0.997
+    ],
+    [
+      "elapsed_seconds",
+      "phase_extension_detected",
+      0.982
+    ],
+    [
+      "phase_deviation_pct",
+      "phase_extension_detected",
+      0.986
+    ],
+    [
+      "waiting_vehicles",
+      "avg_speed",
+      -0.84
+    ],
+    [
+      "co2_mg_s",
+      "nox_mg_s",
+      0.983
+    ],
+    [
+      "co2_mg_s",
+      "co2_spike_flag",
+      0.821
+    ],
+    [
+      "nox_mg_s",
+      "co2_spike_flag",
+      0.8
+    ],
+    [
+      "traci_cmd_count",
+      "traci_set_count_60s",
+      0.993
+    ],
+    [
+      "traci_cmd_count",
+      "source_connection_count",
+      0.922
+    ],
+    [
+      "traci_cmd_count",
+      "cmd_rate_delta",
+      0.924
+    ],
+    [
+      "traci_set_count_60s",
+      "source_connection_count",
+      0.913
+    ],
+    [
+      "traci_set_count_60s",
+      "cmd_rate_delta",
+      0.912
+    ],
+    [
+      "source_connection_count",
+      "cmd_rate_delta",
+      0.882
+    ],
+    [
+      "vibration_level",
+      "cabinet_temperature_c",
+      0.895
+    ],
+    [
+      "vibration_level",
+      "sensor_anomaly_flag",
+      0.987
+    ],
+    [
+      "cabinet_temperature_c",
+      "sensor_anomaly_flag",
+      0.907
+    ]
+  ]
+}

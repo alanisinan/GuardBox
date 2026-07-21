@@ -1,0 +1,236 @@
+{
+  "n_eval_per_class": 25,
+  "topologies": {
+    "intersection": {
+      "detection": {
+        "normal": {
+          "rate": 0.0,
+          "det": 0,
+          "n": 25,
+          "wilson_ci": [
+            0.0,
+            0.13319649395317873
+          ]
+        },
+        "timing_manipulation": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "replay_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "physical_intrusion": {
+          "rate": 0.76,
+          "det": 19,
+          "n": 25,
+          "wilson_ci": [
+            0.5656994004476144,
+            0.8850384226967327
+          ]
+        },
+        "combined_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        }
+      },
+      "rf_cv_f1": 1.0,
+      "top_features": [
+        [
+          "door_state",
+          0.2202447350094546
+        ],
+        [
+          "cmd_rate_delta",
+          0.1469853244735139
+        ],
+        [
+          "traci_set_count_60s",
+          0.12441566690855874
+        ],
+        [
+          "phase_deviation_pct",
+          0.11086108458846261
+        ],
+        [
+          "traci_cmd_count",
+          0.10572314849301229
+        ],
+        [
+          "elapsed_seconds",
+          0.08456372409592594
+        ]
+      ],
+      "lstm_threshold": 0.9033390283584595
+    },
+    "better_intersection": {
+      "detection": {
+        "normal": {
+          "rate": 0.0,
+          "det": 0,
+          "n": 25,
+          "wilson_ci": [
+            0.0,
+            0.13319649395317873
+          ]
+        },
+        "timing_manipulation": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "replay_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "physical_intrusion": {
+          "rate": 0.76,
+          "det": 19,
+          "n": 25,
+          "wilson_ci": [
+            0.5656994004476144,
+            0.8850384226967327
+          ]
+        },
+        "combined_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        }
+      },
+      "rf_cv_f1": 1.0,
+      "top_features": [
+        [
+          "door_state",
+          0.22362503617343552
+        ],
+        [
+          "cmd_rate_delta",
+          0.13869518965005823
+        ],
+        [
+          "traci_cmd_count",
+          0.1273499330223842
+        ],
+        [
+          "traci_set_count_60s",
+          0.11767617094256554
+        ],
+        [
+          "phase_deviation_pct",
+          0.10134044852995461
+        ],
+        [
+          "elapsed_seconds",
+          0.0872137114541336
+        ]
+      ],
+      "lstm_threshold": 0.9910246133804321
+    },
+    "complex_intersection": {
+      "detection": {
+        "normal": {
+          "rate": 0.0,
+          "det": 0,
+          "n": 25,
+          "wilson_ci": [
+            0.0,
+            0.13319649395317873
+          ]
+        },
+        "timing_manipulation": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "replay_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        },
+        "physical_intrusion": {
+          "rate": 0.64,
+          "det": 16,
+          "n": 25,
+          "wilson_ci": [
+            0.44518154601046633,
+            0.7975234356826436
+          ]
+        },
+        "combined_attack": {
+          "rate": 1.0,
+          "det": 25,
+          "n": 25,
+          "wilson_ci": [
+            0.8668035060468213,
+            1.0
+          ]
+        }
+      },
+      "rf_cv_f1": 1.0,
+      "top_features": [
+        [
+          "door_state",
+          0.20888509522959312
+        ],
+        [
+          "cmd_rate_delta",
+          0.15849957217834004
+        ],
+        [
+          "traci_set_count_60s",
+          0.11872919239035885
+        ],
+        [
+          "traci_cmd_count",
+          0.11646049466796861
+        ],
+        [
+          "phase_deviation_pct",
+          0.10374393289941898
+        ],
+        [
+          "elapsed_seconds",
+          0.08167884065993664
+        ]
+      ],
+      "lstm_threshold": 0.9776092767715454
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "topology": "better_intersection",
+  "windows": {
+    "12": {
+      "normal": {
+        "detection_rate": 0.0,
+        "det": 0,
+        "n": 75,
+        "wilson_ci": [
+          0.0,
+          0.04872554590470005
+        ],
+        "mean_latency_s": null
+      },
+      "timing_manipulation": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      },
+      "replay_attack": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      },
+      "physical_intrusion": {
+        "detection_rate": 0.8133333333333334,
+        "det": 61,
+        "n": 75,
+        "wilson_ci": [
+          0.7107120474561753,
+          0.8854199437768794
+        ],
+        "mean_latency_s": 489.1803278688525
+      },
+      "combined_attack": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      }
+    },
+    "18": {
+      "normal": {
+        "detection_rate": 0.0,
+        "det": 0,
+        "n": 75,
+        "wilson_ci": [
+          0.0,
+          0.04872554590470005
+        ],
+        "mean_latency_s": null
+      },
+      "timing_manipulation": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      },
+      "replay_attack": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      },
+      "physical_intrusion": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 493.0
+      },
+      "combined_attack": {
+        "detection_rate": 1.0,
+        "det": 75,
+        "n": 75,
+        "wilson_ci": [
+          0.9512744540953,
+          1.0
+        ],
+        "mean_latency_s": 450.0
+      }
+    }
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "topology": "better_intersection",
+  "attribution": {
+    "RandomForest (GuardBox)": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 189.89109992980957
+    },
+    "SVM-RBF": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 135.38002967834473
+    },
+    "XGBoost": {
+      "macro_f1": 0.9978516448500792,
+      "accuracy": 0.9980370370370371,
+      "per_class_f1": {
+        "normal": 0.998945557467118,
+        "timing_manipulation": 0.9940762266681569,
+        "replay_attack": 0.9962364401151207,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 628.105878829956
+    },
+    "MLP": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 98.12378883361816
+    },
+    "LogisticRegression": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 12.228012084960938
+    },
+    "1D-CNN": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 1586.3618850708008
+    },
+    "GRU": {
+      "macro_f1": 1.0,
+      "accuracy": 1.0,
+      "per_class_f1": {
+        "normal": 1.0,
+        "timing_manipulation": 1.0,
+        "replay_attack": 1.0,
+        "physical_intrusion": 1.0,
+        "combined_attack": 1.0
+      },
+      "fit_ms": 2829.87904548645
+    }
+  },
+  "detection": {
+    "IsolationForest": {
+      "normal": 0.0,
+      "timing_manipulation": 0.02666666666666667,
+      "replay_attack": 0.0,
+      "physical_intrusion": 0.0,
+      "combined_attack": 1.0
+    },
+    "OneClassSVM": {
+      "normal": 0.0,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8533333333333334,
+      "combined_attack": 1.0
+    }
+  }
+}

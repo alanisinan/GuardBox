@@ -1,0 +1,14 @@
+{
+  "caps": {
+    "cpus": 2,
+    "memory_gb": 1.0
+  },
+  "cgroup": {
+    "memory_max_gb": 1.07,
+    "cpu_max_cpus": 2.0
+  },
+  "mean_decision_ms": 42.5,
+  "peak_memory_gb": 0.65,
+  "headroom_vs_5s": 118,
+  "note": "below Raspberry Pi 5 (4 cores / >=2 GB); workstation cores throttled via CFS quota"
+}

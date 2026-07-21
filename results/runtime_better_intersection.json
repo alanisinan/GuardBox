@@ -1,0 +1,16 @@
+{
+  "machine": {
+    "platform": "macOS-26.5.2-arm64-arm-64bit",
+    "processor": "Apple M3 Pro, 12 cores, 19 GB",
+    "python": "3.11.15"
+  },
+  "lstm_inference_ms_per_window": 18.455698490142822,
+  "rf_inference_ms_per_snapshot": 15.238829851150513,
+  "combined_ms_per_decision": 33.694528341293335,
+  "peak_inference_memory_gb": 0.673841152,
+  "lstm_params": 64861,
+  "lstm_model_kb": 817.3623046875,
+  "rf_model_kb": 628.6103515625,
+  "snapshot_interval_s": 5,
+  "reps": 200
+}
