@@ -1,0 +1,413 @@
+{
+  "topology": "better_intersection",
+  "window_length": 12,
+  "n_eval_per_class": 75,
+  "table1_detection": {
+    "normal": {
+      "n": 75,
+      "detected": 0,
+      "detection_rate": 0.0,
+      "wilson_ci": [
+        0.0,
+        0.04872554590470005
+      ],
+      "mean_severity": 0.1302703074920036,
+      "mean_recon_error": 0.33752382000287373,
+      "fp_rate": 0.0
+    },
+    "timing_manipulation": {
+      "n": 75,
+      "detected": 75,
+      "detection_rate": 1.0,
+      "wilson_ci": [
+        0.9512744540953,
+        1.0
+      ],
+      "mean_severity": 0.41271663619634236,
+      "mean_recon_error": 63.80456934611003
+    },
+    "replay_attack": {
+      "n": 75,
+      "detected": 75,
+      "detection_rate": 1.0,
+      "wilson_ci": [
+        0.9512744540953,
+        1.0
+      ],
+      "mean_severity": 0.47869313005414227,
+      "mean_recon_error": 1546.3563948567707
+    },
+    "physical_intrusion": {
+      "n": 75,
+      "detected": 61,
+      "detection_rate": 0.8133333333333334,
+      "wilson_ci": [
+        0.7107120474561753,
+        0.8854199437768794
+      ],
+      "mean_severity": 0.3262252237495529,
+      "mean_recon_error": 0.31619556109110514
+    },
+    "combined_attack": {
+      "n": 75,
+      "detected": 75,
+      "detection_rate": 1.0,
+      "wilson_ci": [
+        0.9512744540953,
+        1.0
+      ],
+      "mean_severity": 0.6150916267717399,
+      "mean_recon_error": 78.4963954671224
+    }
+  },
+  "latency_s": {
+    "min": 450.0,
+    "max": 500.0,
+    "mean": 458.35664335664336
+  },
+  "separation": {
+    "normal_mean_recon": 0.33752382000287373,
+    "attack_mean_recon_over_all_attack_scenarios": 422.2433888077736,
+    "separation_ratio": 1251.0032293548306,
+    "per_class_ratio": {
+      "timing_manipulation": 189.03723401082266,
+      "replay_attack": 4581.473375252759,
+      "physical_intrusion": 0.9368096186171779,
+      "combined_attack": 232.5654985371227
+    },
+    "derivation": "attack_mean_recon is the mean per-scenario mean reconstruction error over all 300 attack scenarios (75 x 4 families); separation_ratio = attack_mean_recon / normal_mean_recon."
+  },
+  "rf_attribution_on_eval": {
+    "report": {
+      "normal": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 75.0
+      },
+      "timing_manipulation": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 75.0
+      },
+      "replay_attack": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 75.0
+      },
+      "physical_intrusion": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 75.0
+      },
+      "combined_attack": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 75.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 375.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 375.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        75,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        75,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        75,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        75,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        75
+      ]
+    ],
+    "labels": [
+      "normal",
+      "timing_manipulation",
+      "replay_attack",
+      "physical_intrusion",
+      "combined_attack"
+    ],
+    "macro_f1": 1.0
+  },
+  "rf_cv": {
+    "f1_macro_mean": 1.0,
+    "f1_macro_std": 0.0
+  },
+  "rf_feature_importances": [
+    [
+      "door_state",
+      0.22362503617343552
+    ],
+    [
+      "cmd_rate_delta",
+      0.13869518965005823
+    ],
+    [
+      "traci_cmd_count",
+      0.1273499330223842
+    ],
+    [
+      "traci_set_count_60s",
+      0.11767617094256554
+    ],
+    [
+      "phase_deviation_pct",
+      0.10134044852995461
+    ],
+    [
+      "elapsed_seconds",
+      0.0872137114541336
+    ],
+    [
+      "phase_extension_detected",
+      0.06075305095456528
+    ],
+    [
+      "source_connection_count",
+      0.06017433037709004
+    ],
+    [
+      "vibration_level",
+      0.031173715508306426
+    ],
+    [
+      "cabinet_temperature_c",
+      0.023156058103705073
+    ],
+    [
+      "sensor_anomaly_flag",
+      0.01740123778498236
+    ],
+    [
+      "power_voltage",
+      0.00504331262846288
+    ],
+    [
+      "avg_speed",
+      0.0018238548340971815
+    ],
+    [
+      "nox_mg_s",
+      0.001734542613145022
+    ],
+    [
+      "co2_mg_s",
+      0.0015244377740047984
+    ],
+    [
+      "waiting_vehicles",
+      0.001297208253415302
+    ],
+    [
+      "co2_spike_flag",
+      1.7761395694014943e-05
+    ],
+    [
+      "current_phase",
+      0.0
+    ]
+  ],
+  "lstm_meta": {
+    "window_length": 12,
+    "n_features": 13,
+    "features": [
+      "current_phase",
+      "elapsed_seconds",
+      "phase_deviation_pct",
+      "waiting_vehicles",
+      "avg_speed",
+      "co2_mg_s",
+      "nox_mg_s",
+      "traci_cmd_count",
+      "traci_set_count_60s",
+      "source_connection_count",
+      "cmd_rate_delta",
+      "phase_extension_detected",
+      "co2_spike_flag"
+    ],
+    "encoder_units": [
+      64,
+      32
+    ],
+    "latent_dim": 16,
+    "decoder_units": [
+      32,
+      64
+    ],
+    "epochs": 40,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "optimizer": "adam",
+    "loss": "mse",
+    "seed": 2,
+    "scaler": "StandardScaler (fit on normal-train only)",
+    "threshold": 0.9869108200073242,
+    "threshold_rule": "100th pct of normal-calib error x 1.5",
+    "calib_error_mean": 0.34572821855545044,
+    "calib_error_max": 0.6579405665397644,
+    "n_train_windows": 6540,
+    "n_calib_windows": 2180,
+    "total_params": 64861
+  },
+  "ablation": {
+    "lstm-only": {
+      "normal": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "timing_manipulation": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "replay_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "physical_intrusion": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "combined_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      }
+    },
+    "rf-only": {
+      "normal": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "timing_manipulation": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "replay_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "physical_intrusion": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "combined_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      }
+    },
+    "sensor-only": {
+      "normal": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "timing_manipulation": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "replay_attack": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "physical_intrusion": {
+        "rate": 0.8133333333333334,
+        "det": 61,
+        "n": 75
+      },
+      "combined_attack": {
+        "rate": 0.7066666666666667,
+        "det": 53,
+        "n": 75
+      }
+    },
+    "full": {
+      "normal": {
+        "rate": 0.0,
+        "det": 0,
+        "n": 75
+      },
+      "timing_manipulation": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "replay_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      },
+      "physical_intrusion": {
+        "rate": 0.8133333333333334,
+        "det": 61,
+        "n": 75
+      },
+      "combined_attack": {
+        "rate": 1.0,
+        "det": 75,
+        "n": 75
+      }
+    }
+  },
+  "severity_norm_stats": {
+    "recon": [
+      0.1312185376882553,
+      3736.669189453125
+    ],
+    "phase_dev": [
+      0.0,
+      164.9682304138403
+    ]
+  },
+  "runtime_s": 175.75998091697693
+}

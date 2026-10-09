@@ -62,7 +62,7 @@ def global_norm_stats(eval_dfs, lstm_model, scaler, rf_clf, window):
 
 def run(topo=C.DEFAULT_TOPOLOGY, n_eval=C.SCENARIOS_PER_CLASS, n_rf_train=10,
         n_normal_train=60, n_normal_calib=20, window=C.WINDOW_LENGTH,
-        tag=None, out_json=None):
+        tag=None, out_json=None, lstm_seed=C.RANDOM_SEED):
     C.ensure_dirs()
     tag = tag or topo
     t0 = time.time()
@@ -74,7 +74,8 @@ def run(topo=C.DEFAULT_TOPOLOGY, n_eval=C.SCENARIOS_PER_CLASS, n_rf_train=10,
     # --- Train LSTM autoencoder (normal-only, strict split) ---
     t1 = time.time()
     lstm_model, scaler, threshold, lstm_meta = train_lstm.train(
-        splits["normal_train"], splits["normal_calib"], window=window, tag=tag)
+        splits["normal_train"], splits["normal_calib"], window=window, tag=tag,
+        seed=lstm_seed)
     print(f"[eval] LSTM trained in {time.time()-t1:.0f}s, threshold={threshold:.4g}", flush=True)
 
     # --- Train RF (rf_train split) ---
@@ -222,7 +223,8 @@ if __name__ == "__main__":
     ap.add_argument("--n-normal-calib", type=int, default=20)
     ap.add_argument("--window", type=int, default=C.WINDOW_LENGTH)
     ap.add_argument("--tag", default=None)
+    ap.add_argument("--lstm-seed", type=int, default=C.RANDOM_SEED)
     args = ap.parse_args()
     run(topo=args.topo, n_eval=args.n_eval, n_rf_train=args.n_rf_train,
         n_normal_train=args.n_normal_train, n_normal_calib=args.n_normal_calib,
-        window=args.window, tag=args.tag)
+        window=args.window, tag=args.tag, lstm_seed=args.lstm_seed)
