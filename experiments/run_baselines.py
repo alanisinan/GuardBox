@@ -174,7 +174,9 @@ def deep_learning_baselines(rf_train_dfs, eval_dfs, features):
     import tensorflow as tf
     from tensorflow.keras import layers, models
 
-    tf.random.set_seed(C.RANDOM_SEED)
+    # Seeds Python, NumPy and TensorFlow; under Keras 3, tf.random.set_seed alone
+    # leaves the layer weight initializers unseeded (see detection/train_lstm.py).
+    tf.keras.utils.set_random_seed(C.RANDOM_SEED)
     W = C.WINDOW_LENGTH
     Xtr, ytr = _windowed(rf_train_dfs, features, W, eval_one=False, per_class=200)
     Xte, yte = _windowed(eval_dfs, features, W, eval_one=True)
