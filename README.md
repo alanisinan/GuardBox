@@ -91,9 +91,10 @@ enters model fitting as a labeled example.) Every scenario is reproducible from 
 ## Reproducibility notes
 
 All randomness is seeded (`RANDOM_SEED = 42` in `detection/config.py`; per-scenario seeds via
-the seed bands in `experiments/datagen.py`). The LSTM autoencoder is seeded with
-`tf.keras.utils.set_random_seed`, which fixes Python, NumPy, and TensorFlow randomness
-together, so retraining is deterministic for a given platform and TensorFlow version. Results
+the seed bands in `experiments/datagen.py`). The Keras models (the LSTM autoencoder and the
+1D-CNN/GRU baselines) are seeded with `tf.keras.utils.set_random_seed`, which fixes Python,
+NumPy, and TensorFlow randomness together, so retraining is deterministic for a given platform
+and TensorFlow version. Results
 are written as JSON under `results/`; the manuscript's numbers are emitted as LaTeX
 macros/tables by `experiments/emit_latex_macros.py`.
 
