@@ -1,0 +1,352 @@
+{
+  "topology": "better_intersection",
+  "seeds": [
+    42,
+    1,
+    2,
+    3
+  ],
+  "published_separation_ratio": 1192.5363989674042,
+  "all_discrete_identical": true,
+  "max_abs_recon_rel_dev": 0.07467696424722015,
+  "max_severity_abs_diff": 0.0013591897785217855,
+  "separation_ratio_range": [
+    1243.562623572789,
+    1293.3745620422035
+  ],
+  "noise_sweep_range": {
+    "0.0": {
+      "normal": [
+        0.0,
+        0.0
+      ],
+      "timing_manipulation": [
+        1.0,
+        1.0
+      ],
+      "replay_attack": [
+        1.0,
+        1.0
+      ],
+      "physical_intrusion": [
+        0.8133333333333334,
+        0.8133333333333334
+      ],
+      "combined_attack": [
+        1.0,
+        1.0
+      ]
+    },
+    "0.25": {
+      "normal": [
+        0.0,
+        0.06666666666666667
+      ],
+      "timing_manipulation": [
+        1.0,
+        1.0
+      ],
+      "replay_attack": [
+        1.0,
+        1.0
+      ],
+      "physical_intrusion": [
+        0.8133333333333334,
+        0.8133333333333334
+      ],
+      "combined_attack": [
+        1.0,
+        1.0
+      ]
+    },
+    "0.5": {
+      "normal": [
+        0.04,
+        0.49333333333333335
+      ],
+      "timing_manipulation": [
+        1.0,
+        1.0
+      ],
+      "replay_attack": [
+        1.0,
+        1.0
+      ],
+      "physical_intrusion": [
+        0.8133333333333334,
+        0.8133333333333334
+      ],
+      "combined_attack": [
+        1.0,
+        1.0
+      ]
+    },
+    "1.0": {
+      "normal": [
+        1.0,
+        1.0
+      ],
+      "timing_manipulation": [
+        1.0,
+        1.0
+      ],
+      "replay_attack": [
+        1.0,
+        1.0
+      ],
+      "physical_intrusion": [
+        0.9866666666666667,
+        1.0
+      ],
+      "combined_attack": [
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "published_noise_sweep": {
+    "0.0": {
+      "normal": 0.0,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8133333333333334,
+      "combined_attack": 1.0
+    },
+    "0.25": {
+      "normal": 0.02666666666666667,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8133333333333334,
+      "combined_attack": 1.0
+    },
+    "0.5": {
+      "normal": 0.7066666666666667,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8266666666666667,
+      "combined_attack": 1.0
+    },
+    "1.0": {
+      "normal": 1.0,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.9866666666666667,
+      "combined_attack": 1.0
+    }
+  },
+  "hard_negatives_identical": true,
+  "per_seed": {
+    "42": {
+      "discrete_identical_to_published": true,
+      "lstm_threshold": 0.9991745352745056,
+      "recon_mean_rel_dev": {
+        "normal": -0.03748627310764985,
+        "timing_manipulation": -0.007970173086877752,
+        "replay_attack": 0.006035152608804939,
+        "physical_intrusion": -0.030199855108151485,
+        "combined_attack": -0.03348555500424433
+      },
+      "severity_abs_diff": {
+        "normal": 1.9950931698375918e-07,
+        "timing_manipulation": 0.00012002047475517807,
+        "replay_attack": 8.685959004944843e-05,
+        "physical_intrusion": 2.066749219375996e-06,
+        "combined_attack": 0.0007155203891741069
+      },
+      "separation_ratio": 1243.562623572789,
+      "noise_sweep": {
+        "0.0": {
+          "normal": 0.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.25": {
+          "normal": 0.06666666666666667,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.5": {
+          "normal": 0.4266666666666667,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "1.0": {
+          "normal": 1.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 1.0,
+          "combined_attack": 1.0
+        }
+      },
+      "hard_negatives": {
+        "benign_maintenance": 0,
+        "emergency_preemption": 75
+      }
+    },
+    "1": {
+      "discrete_identical_to_published": true,
+      "lstm_threshold": 1.067855954170227,
+      "recon_mean_rel_dev": {
+        "normal": -0.07467696424722015,
+        "timing_manipulation": 0.01918892158625818,
+        "replay_attack": 0.0018292660760028667,
+        "physical_intrusion": -0.0685858250628435,
+        "combined_attack": 0.02613811918684683
+      },
+      "severity_abs_diff": {
+        "normal": 4.34928217718511e-07,
+        "timing_manipulation": 0.00039018888594144485,
+        "replay_attack": 0.0008383822333025703,
+        "physical_intrusion": 2.4337362208859403e-07,
+        "combined_attack": 0.0002575553130715891
+      },
+      "separation_ratio": 1293.3745620422035,
+      "noise_sweep": {
+        "0.0": {
+          "normal": 0.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.25": {
+          "normal": 0.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.5": {
+          "normal": 0.04,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "1.0": {
+          "normal": 1.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.9866666666666667,
+          "combined_attack": 1.0
+        }
+      },
+      "hard_negatives": {
+        "benign_maintenance": 0,
+        "emergency_preemption": 75
+      }
+    },
+    "2": {
+      "discrete_identical_to_published": true,
+      "lstm_threshold": 0.9869108200073242,
+      "recon_mean_rel_dev": {
+        "normal": -0.04594087054798224,
+        "timing_manipulation": 0.042078980903478724,
+        "replay_attack": -0.0011904338310609885,
+        "physical_intrusion": -0.036583737659003024,
+        "combined_attack": 0.008818345116848203
+      },
+      "severity_abs_diff": {
+        "normal": 4.0458559899536617e-07,
+        "timing_manipulation": 0.0006959337972884949,
+        "replay_attack": 0.0010136053732669459,
+        "physical_intrusion": 1.5772012127990287e-06,
+        "combined_attack": 1.6369799232918147e-05
+      },
+      "separation_ratio": 1251.0032293548306,
+      "noise_sweep": {
+        "0.0": {
+          "normal": 0.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.25": {
+          "normal": 0.05333333333333334,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.5": {
+          "normal": 0.49333333333333335,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "1.0": {
+          "normal": 1.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.9866666666666667,
+          "combined_attack": 1.0
+        }
+      },
+      "hard_negatives": {
+        "benign_maintenance": 0,
+        "emergency_preemption": 75
+      }
+    },
+    "3": {
+      "discrete_identical_to_published": true,
+      "lstm_threshold": 0.9707431793212891,
+      "recon_mean_rel_dev": {
+        "normal": -0.037624059127463916,
+        "timing_manipulation": 0.06978285712857835,
+        "replay_attack": 0.006594850167248367,
+        "physical_intrusion": -0.035812305752257356,
+        "combined_attack": 0.02536395323249785
+      },
+      "severity_abs_diff": {
+        "normal": 2.7263088203666186e-07,
+        "timing_manipulation": 0.0008987500287398476,
+        "replay_attack": 0.0013591897785217855,
+        "physical_intrusion": 2.3773693014206287e-08,
+        "combined_attack": 0.00024289043197078808
+      },
+      "separation_ratio": 1251.2336675637612,
+      "noise_sweep": {
+        "0.0": {
+          "normal": 0.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.25": {
+          "normal": 0.05333333333333334,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "0.5": {
+          "normal": 0.48,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 0.8133333333333334,
+          "combined_attack": 1.0
+        },
+        "1.0": {
+          "normal": 1.0,
+          "timing_manipulation": 1.0,
+          "replay_attack": 1.0,
+          "physical_intrusion": 1.0,
+          "combined_attack": 1.0
+        }
+      },
+      "hard_negatives": {
+        "benign_maintenance": 0,
+        "emergency_preemption": 75
+      }
+    }
+  }
+}

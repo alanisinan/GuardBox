@@ -116,11 +116,12 @@ def hard_negatives(normal_eval, lstm, scaler, rf, thr, norm_stats):
     return out
 
 
-def run(topo=C.DEFAULT_TOPOLOGY, n_eval=C.SCENARIOS_PER_CLASS):
+def run(topo=C.DEFAULT_TOPOLOGY, n_eval=C.SCENARIOS_PER_CLASS, tag=None, out_json=None):
     C.ensure_dirs()
+    tag = tag or topo
     splits = datagen.build_all(topo=topo, n_eval=n_eval, progress=False)
-    lstm, scaler, thr, _ = train_lstm.load(tag=topo)
-    rf, _ = train_rf.load(tag=topo)
+    lstm, scaler, thr, _ = train_lstm.load(tag=tag)
+    rf, _ = train_rf.load(tag=tag)
     norm_stats, _ = global_norm_stats(splits["eval"], lstm, scaler, rf, C.WINDOW_LENGTH)
     stds = _feature_std(splits["normal_train"])
 
@@ -130,7 +131,7 @@ def run(topo=C.DEFAULT_TOPOLOGY, n_eval=C.SCENARIOS_PER_CLASS):
 
     results = {"topology": topo, "noise_levels": NOISE_LEVELS,
                "noise_sweep": sweep, "hard_negatives": hardneg}
-    out = os.path.join(C.RESULTS_DIR, "robustness.json")
+    out = out_json or os.path.join(C.RESULTS_DIR, "robustness.json")
     with open(out, "w") as fh:
         json.dump(results, fh, indent=2)
     print(f"[robustness] wrote {out}")

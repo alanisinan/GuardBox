@@ -1,17 +1,23 @@
 """Emit LaTeX result macros from the evaluation JSON files.
 
-Writes GuardBox_Overleaf/gb_results.tex so every regenerated number in the
-manuscript comes from a single authoritative source. Run after run_all.py.
+Writes gb_results.tex and the gb_tab_*.tex tables so every regenerated number
+in the manuscript comes from a single authoritative source. Run after run_all.py.
+
+Output goes to latex/ in the repository root; set GUARDBOX_LATEX_DIR to write
+directly into a manuscript (e.g. Overleaf) project folder instead.
 """
 
 import json
+import math
 import os
 import sys
+
+from scipy.stats import fisher_exact
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from detection import config as C  # noqa: E402
 
-OVERLEAF = "/Users/sinan/Downloads/GuardBox_Overleaf"
+OVERLEAF = os.environ.get("GUARDBOX_LATEX_DIR", os.path.join(C.REPO_ROOT, "latex"))
 PRIMARY = C.DEFAULT_TOPOLOGY
 SHORT = {"normal": "N", "timing_manipulation": "T", "replay_attack": "R",
          "physical_intrusion": "P", "combined_attack": "C"}
@@ -24,6 +30,11 @@ def load(name):
 
 def pct(x):
     return f"{x*100:.0f}\\%"
+
+
+def ci(lo_hi):
+    """Format a [lo, hi] proportion interval as a LaTeX percentage interval."""
+    return f"[{pct(lo_hi[0])}, {pct(lo_hi[1])}]"
 
 
 def main():
@@ -69,9 +80,18 @@ def main():
     mac("rfcvstd", f"{ev['rf_cv']['f1_macro_std']:.4f}")
     mac("rfmacrof", f"{ev['rf_attribution_on_eval']['macro_f1']:.4f}")
 
-    # Physical intrusion Wilson CI
-    pci = t1["physical_intrusion"]["wilson_ci"]
-    mac("physci", f"[{pci[0]*100:.0f}\\%, {pci[1]*100:.0f}\\%]")
+    # Wilson 95% CIs. The text quotes one interval for timing, replay, and combined
+    # ("each"), so warn if those three classes ever stop sharing the same count.
+    mac("physci", ci(t1["physical_intrusion"]["wilson_ci"]))
+    mac("ciT", ci(t1["timing_manipulation"]["wilson_ci"]))
+    mac("ciN", ci(t1["normal"]["wilson_ci"]))
+    if len({(t1[c]["detected"], t1[c]["n"]) for c in
+            ("timing_manipulation", "replay_attack", "combined_attack")}) != 1:
+        print("[macros] WARNING: timing/replay/combined detection counts differ; "
+              "the manuscript text quoting \\ciT for all three needs updating")
+
+    _multi_macros(mac, t1["physical_intrusion"])
+    _init_macros(mac)
 
     mac("snapinterval", str(C.SNAPSHOT_INTERVAL_S))
 
@@ -102,11 +122,87 @@ def main():
         mac("hnmaint", "--")
         mac("hnpreempt", "--")
 
+    os.makedirs(OVERLEAF, exist_ok=True)
     with open(os.path.join(OVERLEAF, "gb_results.tex"), "w") as fh:
         fh.write("\n".join(lines) + "\n")
     print(f"[macros] wrote gb_results.tex with {len(lines)-1} macros")
 
     _emit_tables(ev)
+
+
+def _multi_macros(mac, headline_phys):
+    """Physical-intrusion rates of the multi-intersection study, their Wilson
+    intervals, and a two-sided Fisher's exact test of each independent draw
+    against the headline 375-scenario rate.
+
+    The main grid keeps seed offset 0 (experiments/datagen.py), so its 25-per-class
+    evaluation set is the first 25 scenarios of the main 75-per-class set. That
+    row is a subset of the headline sample rather than an independent draw, so it
+    is reported with its interval but not tested against the headline rate.
+    """
+    try:
+        m = load("multi_intersection.json")
+    except FileNotFoundError:
+        for s in ["miprange", "mipciwidth", "mipmain", "mipmainn", "mipmainci", "mipfour",
+                  "mipfourn", "mipfourci", "mipfourp", "mipdemand", "mipdemandn",
+                  "mipdemandci", "mipdemandp"]:
+            mac(s, "--")
+        return
+    phys = {t: r["detection"]["physical_intrusion"] for t, r in m["topologies"].items()}
+    rates = [p["rate"] for p in phys.values()]
+    lo_rate, hi_rate = min(rates), max(rates)
+    mac("miprange", f"{lo_rate*100:.0f}--{hi_rate*100:.0f}\\%")
+    widths = [(p["wilson_ci"][1] - p["wilson_ci"][0]) * 100 for p in phys.values()]
+    mac("mipciwidth", f"{min(widths):.0f}--{max(widths):.0f}")
+
+    k_head, n_head = headline_phys["detected"], headline_phys["n"]
+    for topo, pfx in [("better_intersection", "mipmain"), ("intersection", "mipfour"),
+                      ("complex_intersection", "mipdemand")]:
+        p = phys[topo]
+        mac(pfx, pct(p["rate"]))
+        mac(f"{pfx}n", f"{p['det']}/{p['n']}")
+        mac(f"{pfx}ci", ci(p["wilson_ci"]))
+        if topo != PRIMARY:
+            _, pval = fisher_exact([[p["det"], p["n"] - p["det"]],
+                                    [k_head, n_head - k_head]])
+            mac(f"{pfx}p", f"{pval:.2f}")
+
+
+def _init_macros(mac):
+    """Weight-initialization sensitivity (experiments/run_init_sensitivity.py).
+
+    The manuscript states that the discrete main-evaluation outcomes, the clean and
+    sigma=1.0 false-positive rates, and the hard-negative results do not change
+    across seeds, so warn if any of those claims stops holding."""
+    names = ["initn", "initseeds", "initrecondev", "initsepmin", "initsepmax",
+             "initsevdiff", "initfpq", "initfph"]
+    try:
+        s = load("init_sensitivity.json")
+    except FileNotFoundError:
+        for n in names:
+            mac(n, "--")
+        return
+    words = {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
+    mac("initn", words.get(len(s["seeds"]), str(len(s["seeds"]))))
+    mac("initseeds", ", ".join(str(x) for x in s["seeds"]))
+    # Upper bounds are rounded up so "within"/"at most" statements stay true.
+    mac("initrecondev", f"{math.ceil(s['max_abs_recon_rel_dev'] * 100):.0f}\\%")
+    lo, hi = s["separation_ratio_range"]
+    mac("initsepmin", f"{lo:,.0f}".replace(",", "{,}"))
+    mac("initsepmax", f"{hi:,.0f}".replace(",", "{,}"))
+    mac("initsevdiff", f"{math.ceil(s['max_severity_abs_diff'] * 1000) / 1000:.3f}")
+    ns = s["noise_sweep_range"]
+    for key, sigma in (("initfpq", "0.25"), ("initfph", "0.5")):
+        a, b = ns[sigma]["normal"]
+        mac(key, f"{a*100:.0f}--{b*100:.0f}\\%")
+
+    stable = (s["all_discrete_identical"] and s["hard_negatives_identical"]
+              and ns["0.0"]["normal"] == [0.0, 0.0] and ns["1.0"]["normal"] == [1.0, 1.0]
+              and all(ns[sig][c] == [1.0, 1.0] for sig in ns
+                      for c in ("timing_manipulation", "replay_attack", "combined_attack")))
+    if not stable:
+        print("[macros] WARNING: init_sensitivity.json no longer supports the manuscript's "
+              "statements about outcomes that are unchanged across seeds")
 
 
 def _emit_tables(ev):
@@ -137,7 +233,9 @@ def _write_robustness():
             "magnitude expressed as a fraction $\\sigma$ of each feature's normal standard "
             "deviation). Attack detection is essentially unaffected, but the normal "
             "false-positive rate rises once noise approaches half a feature standard deviation, "
-            "reflecting the tightly calibrated reconstruction threshold.}\n"
+            "reflecting the tightly calibrated reconstruction threshold. Values are for the "
+            "reported model; the intermediate false-positive rates vary with the autoencoder's "
+            "weight initialization (see text).}\n"
             "\\label{tab:robustness}\n\\centering\n\\scriptsize\n\\begin{tabular}{lccccc}\n"
             "\\toprule\nNoise $\\sigma$ & Normal FP & " + hdr + " \\\\\n\\midrule\n"
             + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n")
@@ -150,6 +248,11 @@ def _tab(fname, body):
     print(f"[macros] wrote {fname}")
 
 
+def _stack(*lines):
+    """A multi-line table cell built from a nested tabular (no extra packages)."""
+    return "\\begin{tabular}[c]{@{}c@{}}" + "\\\\".join(lines) + "\\end{tabular}"
+
+
 def _write_table1(ev):
     t1 = ev["table1_detection"]
     rows = []
@@ -157,16 +260,20 @@ def _write_table1(ev):
                 "combined_attack", "normal"]:
         t = t1[cls]
         name = cls.replace("_", "\\_")
-        if cls == "normal":
-            dr = f"{t['detection_rate']*100:.0f}\\% FP"
-        else:
-            dr = f"{t['detection_rate']*100:.0f}\\% ({t['detected']}/{t['n']})"
-        rows.append(f"{name} & {dr} & {t['mean_severity']:.3f} & {t['mean_recon_error']:.6f} \\\\")
+        fp = " FP" if cls == "normal" else ""
+        dr = f"{t['detection_rate']*100:.0f}\\%{fp} ({t['detected']}/{t['n']})"
+        rows.append(f"{name} & {dr} & {ci(t['wilson_ci'])} & {t['mean_severity']:.3f} & "
+                    f"{t['mean_recon_error']:.3f} \\\\")
+    # Two-line headers keep the five-column table within the template's text width.
+    header = " & ".join(["Attack Class", _stack("Detection", "Rate"),
+                         _stack("95\\% Wilson", "CI"), _stack("Mean", "Severity"),
+                         _stack("Mean Recon.", "Error")])
     body = ("\\begin{table}[!htbp]\n\\caption{Detection performance by class over the "
-            "375-scenario live-evaluation set.}\n\\label{tab:results}\n\\centering\n\\scriptsize\n"
-            "\\begin{tabular}{lccc}\n\\toprule\nAttack Class & Detection Rate & "
-            "Mean Severity & Mean Recon. Error \\\\\n\\midrule\n" + "\n".join(rows)
-            + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n")
+            "375-scenario live-evaluation set. Each detection rate (false-positive rate for "
+            "the normal class) is given with its 95\\% Wilson score interval.}\n"
+            "\\label{tab:results}\n\\centering\n\\scriptsize\n"
+            "\\begin{tabular}{lcccc}\n\\toprule\n" + header + " \\\\\n\\midrule\n"
+            + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n")
     _tab("gb_tab_results.tex", body)
 
 
@@ -258,7 +365,10 @@ def _write_multi():
         rows.append(f"{names.get(topo, topo)} & {cells} \\\\")
     body = ("\\begin{table}[!htbp]\n\\caption{Multi-intersection generalization: per-class "
             "detection rate (normal column is the false-positive rate) with per-topology "
-            f"threshold calibration, {m['n_eval_per_class']} scenarios per class per topology.}}\n"
+            f"threshold calibration, {m['n_eval_per_class']} scenarios per class per topology. "
+            "The 4-controller and demand-variant rows use independent scenario draws; the main "
+            f"row is evaluated on the first {m['n_eval_per_class']} scenarios per class of the "
+            "main evaluation set.}\n"
             "\\label{tab:multi}\n\\centering\n\\scriptsize\n\\begin{tabular}{lccccc}\n\\toprule\n"
             "Topology & Normal & Timing & Replay & Physical & Combined \\\\\n\\midrule\n"
             + "\n".join(rows) + "\n\\bottomrule\n\\end{tabular}\n\\end{table}\n")

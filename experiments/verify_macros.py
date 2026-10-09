@@ -1,9 +1,14 @@
 """Verify every result macro defined in gb_results.tex is used in main.tex and
-carries a real (non-placeholder) value."""
+carries a real (non-placeholder) value.
 
+Reads from the same directory emit_latex_macros.py writes to: latex/ in the
+repository root, or GUARDBOX_LATEX_DIR if set (main.tex must be there too)."""
+
+import os
 import re
 
-OVERLEAF = "/Users/sinan/Downloads/GuardBox_Overleaf"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OVERLEAF = os.environ.get("GUARDBOX_LATEX_DIR", os.path.join(REPO_ROOT, "latex"))
 
 defined = {}
 with open(f"{OVERLEAF}/gb_results.tex") as fh:

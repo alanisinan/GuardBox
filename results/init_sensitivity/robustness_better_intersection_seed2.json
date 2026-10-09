@@ -1,0 +1,51 @@
+{
+  "topology": "better_intersection",
+  "noise_levels": [
+    0.0,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "noise_sweep": {
+    "0.0": {
+      "normal": 0.0,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8133333333333334,
+      "combined_attack": 1.0
+    },
+    "0.25": {
+      "normal": 0.05333333333333334,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8133333333333334,
+      "combined_attack": 1.0
+    },
+    "0.5": {
+      "normal": 0.49333333333333335,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.8133333333333334,
+      "combined_attack": 1.0
+    },
+    "1.0": {
+      "normal": 1.0,
+      "timing_manipulation": 1.0,
+      "replay_attack": 1.0,
+      "physical_intrusion": 0.9866666666666667,
+      "combined_attack": 1.0
+    }
+  },
+  "hard_negatives": {
+    "benign_maintenance": {
+      "n": 75,
+      "flagged": 0,
+      "fp_rate": 0.0
+    },
+    "emergency_preemption": {
+      "n": 75,
+      "flagged": 75,
+      "fp_rate": 1.0
+    }
+  }
+}

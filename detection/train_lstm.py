@@ -38,11 +38,14 @@ THRESHOLD_PERCENTILE = 100.0   # max normal calibration error
 THRESHOLD_MARGIN = 1.50        # 50% headroom above the calibration maximum
 
 
-def build_autoencoder(window, n_features):
+def build_autoencoder(window, n_features, seed=C.RANDOM_SEED):
     import tensorflow as tf
     from tensorflow.keras import layers, models
 
-    tf.random.set_seed(C.RANDOM_SEED)
+    # Seed Python, NumPy and TensorFlow together. Under Keras 3 the layer weight
+    # initializers draw on Python's RNG, so tf.random.set_seed alone does not fix
+    # them; this makes weight initialization and mini-batch shuffling deterministic.
+    tf.keras.utils.set_random_seed(seed)
     m = models.Sequential(name="lstm_autoencoder")
     m.add(layers.Input((window, n_features)))
     m.add(layers.LSTM(ENCODER_UNITS[0], return_sequences=True))
@@ -80,7 +83,7 @@ def scale_windows(windows, scaler):
 
 
 def train(normal_train_dfs, normal_calib_dfs, window=C.WINDOW_LENGTH,
-          out_dir=C.MODELS_DIR, features=None, tag=""):
+          out_dir=C.MODELS_DIR, features=None, tag="", seed=C.RANDOM_SEED):
     features = features or C.LSTM_FEATURES
     C.ensure_dirs()
     scaler = fit_scaler(normal_train_dfs, features)
@@ -89,7 +92,7 @@ def train(normal_train_dfs, normal_calib_dfs, window=C.WINDOW_LENGTH,
         [scale_windows(scenario_windows(df, window, features)[0], scaler)
          for df in normal_train_dfs])
 
-    model = build_autoencoder(window, len(features))
+    model = build_autoencoder(window, len(features), seed=seed)
     model.fit(train_windows, train_windows, epochs=EPOCHS, batch_size=BATCH_SIZE,
               validation_split=0.1, verbose=0, shuffle=True)
 
@@ -114,6 +117,7 @@ def train(normal_train_dfs, normal_calib_dfs, window=C.WINDOW_LENGTH,
         "learning_rate": LEARNING_RATE,
         "optimizer": "adam",
         "loss": "mse",
+        "seed": seed,
         "scaler": "StandardScaler (fit on normal-train only)",
         "threshold": threshold,
         "threshold_rule": f"{THRESHOLD_PERCENTILE:.0f}th pct of normal-calib error x {THRESHOLD_MARGIN}",
